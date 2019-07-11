@@ -6,30 +6,35 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  
+
   description: {
     type: String,
     required: true,
   },
-  
+
   price: {
     type: Number,
     required: true,
   },
-  
+
   category: {
     type: mongoose.Types.ObjectId,
     ref: 'Category',
     required: true,
   },
-  
+
   subcategory: {
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  
+
   images: [String],
-  
+
+});
+productSchema.set('toObject', {
+  virtuals: true,
+  versionKey:false,
+  transform: function (doc, ret) {   delete ret._id  }
 });
 
 module.exports = connection.model('Product', productSchema);
